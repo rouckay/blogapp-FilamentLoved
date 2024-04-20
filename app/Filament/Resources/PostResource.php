@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use illuminate\Support\Str;
+
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
