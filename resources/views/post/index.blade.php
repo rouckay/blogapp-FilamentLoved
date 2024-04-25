@@ -1,4 +1,4 @@
-<x-app-layout meta-description="Developer is the best one" >
+<x-app-layout meta-title="{{ $category->title }}" meta-description="By Category Page Details" >
 
     <section class="w-full md:w-2/3 flex flex-col items-center px-3">
         

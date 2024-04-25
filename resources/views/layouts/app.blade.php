@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Master Blog</title>
-    <meta name="author" content="David Grzyb">
-    <meta name="description" content="">
+    <title>{{ $metaTitle ?: 'Expert Panel' }}</title>
+    <meta name="author" content="Farhad Rahmani">
+    <meta name="description" content="{{$metaDescription}}">
 
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -15,6 +15,13 @@
 
         .font-family-karla {
             font-family: karla;
+        }
+        pre {
+            padding:1rem;
+            background-color: #1a202c;
+            color: white;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem; 
         }
     </style>
 
@@ -57,7 +64,7 @@
     <!-- Text Header -->
     <header class="w-full container mx-auto">
         <div class="flex flex-col items-center py-12">
-            <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="#">
+            <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="{{route('home')}}">
                 App Master Blog
             </a>
             <p class="text-lg text-gray-600">
@@ -81,9 +88,9 @@
             <div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
                 <a href="{{route('home')}}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Home</a>
                 @foreach ($categories as $category)
-                    <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">{{$category->title}}</a> 
+                    <a href="{{ route('by-category', $category)}}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2 {{ request('category')?->slug === $category->slug ? 'bg-blue-600 text-white' : ''  }} ">{{$category->title}}</a> 
                 @endforeach
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">About Us</a>
+                <a href="{{ route('about-us') }}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">About Us</a>
                 
             </div>
         </div>

@@ -18,11 +18,11 @@ class TextWidget extends Model
     ];
     public static function getTitle($key): string
     {
-       $widget = Cache::get('text-widget-'.$key, function () use ($key) {
+        $widget = Cache::get('text-widget-' . $key, function () use ($key) {
             return TextWidget::query()
-            ->where('key', '=', $key)
-            ->where('active', '=', 1)
-            ->first();
+                ->where('key', '=', $key)
+                ->where('active', '=', 1)
+                ->first();
         });
         if ($widget) {
             return $widget->title;
@@ -31,16 +31,16 @@ class TextWidget extends Model
     }
     public static function getContent($key): string
     {
-        $widget = Cache::get('text-widget-'.$key, function () use ($key) {
+        $widget = Cache::get('text-widget-' . $key, function () use ($key) {
             return TextWidget::query()
-            ->where('key', '=', $key)
-            ->where('active', '=', 1)
-            ->first();
+                ->where('key', '=', $key)
+                ->where('active', '=', 1)
+                ->first();
         });
         if ($widget) {
             return $widget->content;
         }
         return '';
     }
-     
+
 }

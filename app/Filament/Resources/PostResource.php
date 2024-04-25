@@ -1,5 +1,6 @@
 <?php
 namespace App\Filament\Resources;
+
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
@@ -17,7 +18,7 @@ class PostResource extends Resource
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    
+
     protected static ?string $navigationGroup = 'Content';
 
     public static function form(Form $form): Form
@@ -25,37 +26,41 @@ class PostResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Card::make()
-                ->schema([
-                    Forms\Components\Grid::make(2)
                     ->schema([
-                        Forms\Components\TextInput::make('title')
-                ->reactive()
-                    ->afterStateUpdated(function (callable $set, $state) {
-                        $set('slug', Str::slug($state));
-                    }) 
-                    ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->required(),
-                ]),
-                Forms\Components\RichEditor::make('body')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Toggle::make('active')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('published_at')
-                ])->columnSpan(8),
-                
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('title')
+                                    ->reactive()
+                                    ->afterStateUpdated(function (callable $set, $state) {
+                                        $set('slug', Str::slug($state));
+                                    })
+                                    ->required(),
+                                Forms\Components\TextInput::make('slug')
+                                    ->required(),
+                            ]),
+                        Forms\Components\RichEditor::make('body')
+                            ->required()
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('meta_title')
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('meta_description')
+                            ->columnSpanFull(),
+                        Forms\Components\Toggle::make('active')
+                            ->required(),
+                        Forms\Components\DateTimePicker::make('published_at')
+                    ])->columnSpan(8),
+
                 Forms\Components\Card::make()
-                ->schema([
-                    Forms\Components\FileUpload::make('thumbnail'),
-                    Forms\Components\Select::make('category_id')
-                    ->multiple()
-                    ->relationship('categories', 'title')
-                    ->required(),
-                    Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                        ])->columnSpan(4)
+                    ->schema([
+                        Forms\Components\FileUpload::make('thumbnail'),
+                        Forms\Components\Select::make('category_id')
+                            ->multiple()
+                            ->relationship('categories', 'title')
+                            ->required(),
+                        Forms\Components\Select::make('user_id')
+                            ->relationship('user', 'name')
+                            ->required(),
+                    ])->columnSpan(4)
             ])->columns(12);
     }
 
@@ -88,7 +93,6 @@ class PostResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -111,7 +115,6 @@ class PostResource extends Resource
         return [
             'index' => Pages\ListPosts::route('/'),
             'create' => Pages\CreatePost::route('/create'),
-            'view' => Pages\ViewPost::route('/{record}'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
     }
