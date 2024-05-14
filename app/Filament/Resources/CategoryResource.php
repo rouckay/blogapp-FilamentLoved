@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
@@ -31,7 +32,7 @@ class CategoryResource extends Resource
                     ->reactive()
                     ->afterStateUpdated(function (callable $set, $state) {
                         $set('slug', Str::slug($state));
-                    }) ,
+                    }),
                 Forms\Components\TextInput::make('slug')
                     ->required(),
             ]);

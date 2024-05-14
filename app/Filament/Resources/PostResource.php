@@ -55,6 +55,7 @@ class PostResource extends Resource
                         Forms\Components\FileUpload::make('thumbnail'),
                         Forms\Components\Select::make('category_id')
                             ->multiple()
+                            ->searchable()
                             ->relationship('categories', 'title')
                             ->required(),
                         Forms\Components\Select::make('user_id')
